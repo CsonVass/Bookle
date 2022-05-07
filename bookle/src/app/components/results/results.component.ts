@@ -20,21 +20,49 @@ export class ResultsComponent implements OnInit, OnChanges {
   @Output() loadingDone = new EventEmitter();
   @Output() bookSelected = new EventEmitter(); 
 
-  resultsLoading: boolean = false;
-  firstInit: boolean = true;
+
+  books: Observable<SearcResults> | undefined;
+  selectedBook: Book | undefined;
+
+  /**
+   * Variables for paging
+   */
+  currentPage: number = 0; 
+  maxPages: number = 0;
+  searchLimit: number = 5;
+
+  /**
+  * Flags for rendering
+  */
+    resultsLoading: boolean = false;
+    firstInit: boolean = true;
  
+  /**
+   * Constructor with BooksService dependency injection
+   * @param booksService 
+   */
   constructor(private booksService: BooksService) { }
 
-
+  /**
+   * Calls the getBooks function and sets the firstInit flag on initialization 
+   */
   ngOnInit(): void {
     this.getBooks();
     this.firstInit = false;
   }
 
+  /**
+   * Calls the getBooks function on changes (e.g new search)
+   * @param changes 
+   */
   ngOnChanges(changes: SimpleChanges): void {
     this.getBooks();
   }
 
+  /**
+   * Sets the book via calling the API, sets parameters for calls, emits for the parent and handles the paging 
+   * @returns 
+   */
   getBooks(): void {
     if(this.firstInit) return
     this.resultsLoading = true;
@@ -55,13 +83,12 @@ export class ResultsComponent implements OnInit, OnChanges {
 
    };
 
-  books: Observable<SearcResults> | undefined;
-  searchLimit: number = 5;
 
-  currentPage: number = 0; 
-  maxPages: number = 0;
-  selectedBook: Book | undefined;
-
+  /**
+   * When a book is selected it's assigned to the selectedBook variable 
+   * and the bookSelected event is emited wit providing the selected book for the parent element
+   * @param book 
+   */
   onBookSelected(book: Book){
     this.selectedBook = book;
     this.bookSelected.emit(this.selectedBook);

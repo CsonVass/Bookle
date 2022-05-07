@@ -8,13 +8,17 @@ import { faSync } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './search-panel.component.html',
   styleUrls: ['./search-panel.component.css']
 })
+
 export class SearchPanelComponent implements OnInit {
   @Output() searchClick = new EventEmitter();
   @Input() loading: boolean = false;
   faSync = faSync;
 
+  searchParameters : SearchParameters;
 
-
+  /** 
+   * List of languages for the select input
+   */
   languages: Language[] = [  
     {id: "any", name: "Any"},
     {id: "eng", name: "English"},
@@ -33,8 +37,11 @@ export class SearchPanelComponent implements OnInit {
     {id: "pol", name: "Polish"},
     
   ];
-  searchParameters : SearchParameters;
 
+
+  /**
+   * Constructor for initializing searchParameters
+   */
   constructor() {    
     this.searchParameters = {
       title: null,
@@ -46,9 +53,13 @@ export class SearchPanelComponent implements OnInit {
     }
   }
   
+
   ngOnInit(): void {   
   }
 
+  /**
+   * Emits the searchClick event with providing the searchParameters as parameters for parent element
+   */
   onSubmit(){    
     this.searchClick.emit(this.searchParameters);
 

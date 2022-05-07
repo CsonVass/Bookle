@@ -2,6 +2,10 @@ export class Language {
     id?: String;
     name?: String;
 
+    /**
+     * Constructor used for converting the API data to fit the model
+     * @param id 
+     */
     constructor(id: String){
         this.id = id;
         this.name = getNameById(id);
@@ -10,6 +14,11 @@ export class Language {
 
 }
 
+/**
+ * Handles the mapping between the id-s and names. Returns the corresponding name for the given id 
+ * @param id 
+ * @returns 
+ */
 function getNameById (id:String): String {
     switch (id) {
         case "any":

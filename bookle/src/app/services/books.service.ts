@@ -12,9 +12,17 @@ import { SearchParameters, SearcResults } from '../models/SearchParameters';
 export class BooksService {
   private apiUrl = 'http://openlibrary.org/search.json';
 
+  /**
+   * Constructor with HttpClient dependency injection
+   * @param http 
+   */
   constructor(private http:HttpClient) { }
 
-
+  /**
+   * Generates the query for the API and returns data converted to the model of the application
+   * @param searchParameters 
+   * @returns 
+   */
   getBooks(searchParameters: SearchParameters | null): Observable<SearcResults> {
     let params = new HttpParams();
     if(searchParameters?.title && searchParameters.title != "") params = params.append('title', searchParameters.title.toString())
@@ -32,6 +40,11 @@ export class BooksService {
     
   }  
 
+  /**
+   * Function for converting data into the model's format
+   * @param docs 
+   * @returns 
+   */
   createBookList(docs: any[]): Book[] {
     var books_: Book[] = [];
     docs.forEach(element => {

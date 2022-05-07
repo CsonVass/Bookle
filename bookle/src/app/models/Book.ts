@@ -8,6 +8,10 @@ export class Book {
     languages?: Language[];
     coverId?: number;
 
+    /**
+     * Constructor used for converting the API data to fit the model
+     * @param searchBook 
+     */
     constructor(searchBook: any) {
         this.title = searchBook?.title;
         this.authorKey = searchBook?.author_key[0];
@@ -18,6 +22,11 @@ export class Book {
     }
 }
 
+/**
+ * Making language list from list of language id-s
+ * @param langs 
+ * @returns 
+ */
 function createLanguageList(langs: String[]): Language[] {
     var languageList: Language[] = [];
     var otherAppears: number = 0;
