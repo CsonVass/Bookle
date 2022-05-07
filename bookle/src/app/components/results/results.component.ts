@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { BooksService } from 'src/app/services/books.service';
 import { Book } from 'src/app/models/Book';
 
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faSync } from '@fortawesome/free-solid-svg-icons';
 import { SearchParameters, SearcResults } from 'src/app/models/SearchParameters';
 import { Observable } from 'rxjs';
 
@@ -14,15 +14,21 @@ import { Observable } from 'rxjs';
 export class ResultsComponent implements OnInit, OnChanges {
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
+  faSync = faSync;
 
   @Input() searchParameters: SearchParameters | null = null;
-  @Output() bookSelected = new EventEmitter();  
+  @Output() loadingDone = new EventEmitter();
+  @Output() bookSelected = new EventEmitter(); 
+
+  resultsLoading: boolean = false;
+  firstInit: boolean = true;
  
   constructor(private booksService: BooksService) { }
 
 
   ngOnInit(): void {
     this.getBooks();
+    this.firstInit = false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,6 +36,8 @@ export class ResultsComponent implements OnInit, OnChanges {
   }
 
   getBooks(): void {
+    if(this.firstInit) return
+    this.resultsLoading = true;
     this.searchLimit = (this.searchParameters?.limit ? 
       this.searchParameters.limit : 5);
 
@@ -37,12 +45,14 @@ export class ResultsComponent implements OnInit, OnChanges {
        this.searchParameters.offset = this.currentPage * this.searchLimit;
        this.searchParameters.limit = this.searchLimit;
       }
-    let result = this.booksService.getBooks(this.searchParameters);
-    this.books = result;
-    this.books.subscribe(res => {
-      this.maxPages = Math.ceil(res.numFound / this.searchLimit );      
       
+    this.books = this.booksService.getBooks(this.searchParameters);
+    this.books.subscribe(res => {
+      this.maxPages = Math.ceil(res.numFound / this.searchLimit );
+      this.loadingDone.emit();   
+      this.resultsLoading = false;        
     })
+
    };
 
   books: Observable<SearcResults> | undefined;

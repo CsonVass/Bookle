@@ -1,11 +1,14 @@
 <div class="panel panel-body">
-        <div class="panel-info book-list">
+        <div *ngIf="!resultsLoading" class="panel-info book-list">
             <a *ngFor="let book of (books | async)?.books"
             (click)="onBookSelected(book)"
             [class.active]="book === selectedBook">
                 <h6 class="card border-primary mb-3">{{book.title}} 
                     ({{book.authorName}})</h6>
             </a>
+        </div>
+        <div *ngIf="resultsLoading" class="card text-center">
+            <fa-icon [icon]="faSync" [spin]="true"></fa-icon>
         </div>
         <div class="paging d-flex justify-content-between">
             <button class="col-xs-4 btn btn-info" 

@@ -40,6 +40,8 @@ function getNameById (id:String): String {
             return "Swedish";
         case "pol":
             return "Polish";
+        case "hun":
+            return "Hungarian";
     
         default:
             return "Other";

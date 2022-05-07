@@ -1,7 +1,7 @@
 <div class="container">
-    <app-search-panel class="container" (searchClick)="onSearchClick($event)" ></app-search-panel>
+    <app-search-panel class="container" (searchClick)="onSearchClick($event)" [loading]="loading"></app-search-panel>
     <div class="conatiner d-flex justify-content-around">
-        <app-results  class="col-3 panel" [searchParameters]="searchParameters" (bookSelected)="onBookSelected($event)"></app-results>
+        <app-results  class="col-3 panel" [searchParameters]="searchParameters" (bookSelected)="onBookSelected($event)" (loadingDone)="onLoadingDone()"></app-results>
         <app-book-details class="col-7 panel panel-warning" [book]="selectedBook"></app-book-details>
     </div>
 </div>

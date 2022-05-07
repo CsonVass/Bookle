@@ -11,6 +11,7 @@ export class BodyComponent implements OnInit {
 
   searchParameters: SearchParameters;
   selectedBook: Book | undefined;
+  loading: boolean = false;
 
   constructor() { 
     this.searchParameters = {
@@ -28,10 +29,15 @@ export class BodyComponent implements OnInit {
 
   onSearchClick(searchValues: any){
     this.searchParameters = {...searchValues};
+    this.loading = true;
   }
 
   onBookSelected(selectedBook: Book){
     this.selectedBook = selectedBook;
+  }
+
+  onLoadingDone(){
+    this.loading = false;
   }
 
 }

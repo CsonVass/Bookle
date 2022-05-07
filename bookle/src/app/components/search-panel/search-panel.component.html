@@ -19,16 +19,23 @@
         
         </div>
         <div class="col">
-            <label for="selectLanguage">Language</label>
+            <label for="selectLanguage">Available in this language</label>
             <select id="selectLanguage" class="form-control" [(ngModel)]="searchParameters.language" name="language">
                 <option *ngFor="let language of languages"  [ngValue]="language">{{language.name}}</option>
             </select>
         </div>
         <div class="col">
-            <label for="inputLimit">Limit</label>
-            <input id="inputLimit" type="number" class="form-control" min="1" [(ngModel)]="searchParameters.limit" name="limit" oninput="validity.valid||(value='');">
+            <label for="inputLimit">Results per site</label>
+            <input id="inputLimit" type="number" class="form-control" 
+            min="1" [(ngModel)]="searchParameters.limit" name="limit"
+             oninput="validity.valid||(value='');" placeholder="5">
             
         </div>
     </div>
-    <button class="btn btn-primary" type="submit">Search</button>
+    <button class="btn btn-primary" type="submit">
+        <i class="fa-spin">
+            <fa-icon *ngIf="loading" [icon]="faSync" [spin]="true"></fa-icon>
+        </i>        
+        Search
+    </button>
 </form>
