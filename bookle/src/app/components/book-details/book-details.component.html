@@ -1,0 +1,45 @@
+<div *ngIf="!book" class="panel-body">
+    Book details will show up here
+</div>
+<div *ngIf="book && !fullScreenCover" class="card panel-body">
+    <div class="row no-gutters">
+        <div class="col">
+          <h2 class="card-title">{{book.title}}</h2>
+
+          <a *ngIf="(author | async)?.website" href="{{(author | async)?.website}}" target="_blank">
+            <h3 class="card-subtitle">{{book.authorName}}</h3>
+          </a>
+            <h3 *ngIf="!(author | async)?.website" class="card-subtitle">{{book.authorName}}</h3>
+        
+            <a *ngIf="(author | async)?.wikipedia" href="{{(author | async)?.wikipedia}}" target="_blank">
+            <h4 class="card-subtitle">Author's Wikipedia site</h4>
+          </a>
+
+          <div class="card-body">
+            <h4 class="card-text">
+                Publish year: {{book.published}}
+              </h4>
+                <h4 class="card-text">Languages:</h4> 
+                <ul class="">                  
+                  <li class="card-text" *ngFor="let language of book.languages">{{language.name}}</li>
+                </ul>
+            </div>
+          </div>
+         
+        <div *ngIf="!fullScreenCover" class="col-auto">
+            <img class="rounded img-thumbnail img-fluid" src="https://covers.openlibrary.org/b/id/{{book.coverId}}-M.jpg" alt="Cover"
+            (click)="fullScreenCover=true">
+        </div>
+       
+      </div>
+</div>
+<div *ngIf="fullScreenCover" style="z-index:1; position:relative;">
+    <img class="rounded img-thumbnail front-image" src="https://covers.openlibrary.org/b/id/{{book?.coverId}}-L.jpg" alt="Cover"
+    (click)="fullScreenCover=false" style="width:100%">
+</div>
+
+
+
+
+
+

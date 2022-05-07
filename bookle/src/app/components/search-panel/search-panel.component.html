@@ -1,0 +1,34 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col">
+
+            <label for="inputTitle">Title</label>
+            <input id="inputTitle" type="text" class="form-control" [(ngModel)]="searchParameters.title" name="title">
+        </div>
+        <div class="col">
+            <label for="inputAuthor">Author</label>
+            <input id="inputAuthor" type="text" class="form-control" [(ngModel)]="searchParameters.author" name="author">
+           
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="inputSubject">Subject</label>
+            <input id="inputSubject" type="text" class="form-control" [(ngModel)]="searchParameters.subject" name="subject">
+        
+        </div>
+        <div class="col">
+            <label for="selectLanguage">Language</label>
+            <select id="selectLanguage" class="form-control" [(ngModel)]="searchParameters.language" name="language">
+                <option *ngFor="let language of languages"  [ngValue]="language">{{language.name}}</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="inputLimit">Limit</label>
+            <input id="inputLimit" type="number" class="form-control" min="1" [(ngModel)]="searchParameters.limit" name="limit" oninput="validity.valid||(value='');">
+            
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>

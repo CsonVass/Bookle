@@ -1,0 +1,23 @@
+<div class="panel panel-body">
+        <div class="panel-info book-list">
+            <a *ngFor="let book of (books | async)?.books"
+            (click)="onBookSelected(book)"
+            [class.active]="book === selectedBook">
+                <h6 class="card border-primary mb-3">{{book.title}} 
+                    ({{book.authorName}})</h6>
+            </a>
+        </div>
+        <div class="paging d-flex justify-content-between">
+            <button class="col-xs-4 btn btn-info" 
+            [disabled]="currentPage <= 0" 
+            (click)="currentPage=currentPage-1;getBooks()">
+                <fa-icon [icon]="faArrowLeft"></fa-icon>        </button>
+            <div class="col-xs-4 page-numbers">
+                {{currentPage + 1}}/{{maxPages}}
+            </div>
+            <button class="col-xs-4 btn btn-info" 
+            [disabled]="currentPage >= maxPages - 1"
+            (click)="currentPage=currentPage+1;getBooks()">
+                <fa-icon [icon]="faArrowRight"></fa-icon>
+            </button>
+</div>  

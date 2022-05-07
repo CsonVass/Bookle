@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+a {
+    cursor: pointer;
+}
+
+button[disabled='disabled'] {
+    color: darkgrey !important;
+}
+.paging .page-numbers {
+    text-align: center;
+    line-height: 45px;
+}
+
+img {
+    width: 100px;
+    height: auto;
+}
+/* sm */
+@media (min-width: 768px) {
+    img {
+        width: 150px;
+    }
+}
+/* md */
+@media (min-width: 992px) {
+    img {
+        width: 200px;
+    }
+}
+/* lg */
+@media (min-width: 1200px) {
+    img {
+        width: 250px;
+    }
+}
+
+.book-list a {
+    display: block;
+    padding: 5px 8px;
+    text-decoration: none; 
+}
+.book-list a.active h6 {
+    font-weight: bold;
+    color: white;
+    background-color: rgb(94, 130, 240);
+    
+}
+.book-list a h6 {
+    color: black
+}
+
+ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
