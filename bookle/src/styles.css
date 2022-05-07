@@ -53,3 +53,21 @@ ul {
     -webkit-columns: 2;
     -moz-columns: 2;
   }
+
+  .nav-item a:hover{      
+      background-color: aqua;
+      border-radius: 5px;
+  }
+
+  .nav-item a.active{
+      border: 2px solid aqua;
+      border-radius: 5px;
+  }
+
+  .about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+  }
+  
