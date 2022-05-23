@@ -16,10 +16,17 @@ import { HttpClientModule } from '@angular/common/http';import { RouterModule, R
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { BooksPageComponent } from './components/pages/books-page/books-page.component';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
+import { HistoryComponent } from './components/history/history.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'books', component: BooksPageComponent },
+  { path: 'books', component: BooksPageComponent,
+    children: [
+      {
+        path: 'history/:type',
+        component: HistoryComponent
+      }
+    ] },
   { path: 'about', component: AboutPageComponent }
 
 ]
@@ -35,6 +42,7 @@ const appRoutes: Routes = [
     HomePageComponent,
     BooksPageComponent,
     AboutPageComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

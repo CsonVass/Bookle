@@ -38,6 +38,11 @@ export class SearchPanelComponent implements OnInit {
     
   ];
 
+  titleHistory: Array<string> = [];
+  authorHistory: Array<string> = [];
+  subjectHistory: Array<string> = [];
+  languageHistory: Array<string> = [];
+
 
   /**
    * Constructor for initializing searchParameters
@@ -54,7 +59,8 @@ export class SearchPanelComponent implements OnInit {
   }
   
 
-  ngOnInit(): void {   
+  ngOnInit(): void {  
+    this.getHistory() 
   }
 
   /**
@@ -62,7 +68,58 @@ export class SearchPanelComponent implements OnInit {
    */
   onSubmit(){    
     this.searchClick.emit(this.searchParameters);
+    this.editHistory()
 
+  }
+
+  editHistory(){
+    if(this.searchParameters.title){
+      this.titleHistory.unshift(this.searchParameters.title.toString());
+      localStorage.setItem("titleHistory", JSON.stringify(this.titleHistory.slice(0, 5)));
+    }
+    if(this.searchParameters.author){
+      this.authorHistory.unshift(this.searchParameters.author.toString());
+      localStorage.setItem("authorHistory", JSON.stringify(this.authorHistory.slice(0, 5)));
+    }
+    if(this.searchParameters.subject){
+      this.subjectHistory.unshift(this.searchParameters.subject.toString());
+      localStorage.setItem("subjectHistory", JSON.stringify(this.subjectHistory.slice(0, 5)));
+    }
+    if(this.searchParameters.language.name){
+      this.languageHistory.unshift(this.searchParameters.language.name.toString());
+      localStorage.setItem("languageHistory", JSON.stringify(this.languageHistory.slice(0, 5)));
+    }
+  }
+
+  getHistory(){
+    var titleHistoryFromLS =localStorage.getItem("titleHistory");
+    var authorHistoryFromLS =localStorage.getItem("authorHistory");
+    var subjectHistoryFromLS =localStorage.getItem("subjectHistory");
+    var languageHistoryFromLS =localStorage.getItem("languageHistory");
+   
+    if(titleHistoryFromLS) {
+      this.titleHistory = JSON.parse(titleHistoryFromLS);
+    }
+   
+    if(authorHistoryFromLS) {
+      this.authorHistory = JSON.parse(authorHistoryFromLS);
+    }
+   
+    if(subjectHistoryFromLS) {
+      this.subjectHistory = JSON.parse(subjectHistoryFromLS);
+    }
+   
+    if(languageHistoryFromLS) {
+      this.languageHistory = JSON.parse(languageHistoryFromLS);
+    }
+      
+  }
+
+  removeHistory(){
+    localStorage.removeItem("titleHistory");
+    localStorage.removeItem("authorHistory");
+    localStorage.removeItem("subjectHistory");
+    localStorage.removeItem("languageHistory");
   }
 
 

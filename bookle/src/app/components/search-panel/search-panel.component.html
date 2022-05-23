@@ -1,41 +1,71 @@
-<form (ngSubmit)="onSubmit()">
-    <div class="row">
-        <div class="col">
+<div class="d-flex justify-content-between">
+    <form (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col">
 
-            <label for="inputTitle">Title</label>
-            <input id="inputTitle" type="text" class="form-control" [(ngModel)]="searchParameters.title" name="title">
-        </div>
-        <div class="col">
-            <label for="inputAuthor">Author</label>
-            <input id="inputAuthor" type="text" class="form-control" [(ngModel)]="searchParameters.author" name="author">
-           
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col">
-            <label for="inputSubject">Subject</label>
-            <input id="inputSubject" type="text" class="form-control" [(ngModel)]="searchParameters.subject" name="subject">
-        
-        </div>
-        <div class="col">
-            <label for="selectLanguage">Available in this language</label>
-            <select id="selectLanguage" class="form-control" [(ngModel)]="searchParameters.language" name="language">
-                <option *ngFor="let language of languages"  [ngValue]="language">{{language.name}}</option>
-            </select>
-        </div>
-        <div class="col">
-            <label for="inputLimit">Results per site</label>
-            <input id="inputLimit" type="number" class="form-control" 
-            min="1" [(ngModel)]="searchParameters.limit" name="limit"
-             oninput="validity.valid||(value='');" placeholder="5">
+                <label for="inputTitle">Title</label>
+                <input id="inputTitle" type="text" class="form-control" [(ngModel)]="searchParameters.title" name="title">
+            </div>
+            <div class="col">
+                <label for="inputAuthor">Author</label>
+                <input id="inputAuthor" type="text" class="form-control" [(ngModel)]="searchParameters.author" name="author">
             
+            </div>
+
         </div>
+        <div class="row">
+            <div class="col">
+                <label for="inputSubject">Subject</label>
+                <input id="inputSubject" type="text" class="form-control" [(ngModel)]="searchParameters.subject" name="subject">
+            
+            </div>
+            <div class="col">
+                <label for="selectLanguage">Available in this language</label>
+                <select id="selectLanguage" class="form-control" [(ngModel)]="searchParameters.language" name="language">
+                    <option *ngFor="let language of languages"  [ngValue]="language">{{language.name}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="inputLimit">Results per site</label>
+                <input id="inputLimit" type="number" class="form-control" 
+                min="1" [(ngModel)]="searchParameters.limit" name="limit"
+                oninput="validity.valid||(value='');" placeholder="5">
+                
+            </div>
+        </div>        
+        <button class="btn btn-primary" type="submit">
+            <i class="fa-spin">
+                <fa-icon *ngIf="loading" [icon]="faSync" [spin]="true"></fa-icon>
+            </i>        
+            Search
+        </button>   
+    </form>
+    <div class="card">
+        <div class="card-title d-flex justify-content-center">
+            <a routerLink="/books" style="text-decoration: none; color: black;" >History</a>
+        </div>
+        <button class="btn btn-danger" (click)="removeHistory()">Clear</button>
+        <nav class="navbar navbar-expand-lg d-flex justify-content-between">
+            <div>
+              <ul class="navbar-nav">
+                <li class="" >
+                  <a class="nav-link"  routerLink="/books/history/title" >Title</a>
+                </li>
+                <li class="">
+                  <a class="nav-link" routerLink="/books/history/author" >Author</a>
+                </li>
+                <li class="">
+                  <a class="nav-link"  routerLink="/books/history/subject" >Subject</a>
+                </li>
+                <li class="">
+                  <a class="nav-link"  routerLink="/books/history/language" >Language</a>
+                </li>
+              
+              </ul>
+              <router-outlet></router-outlet>
+            </div>
+        </nav>
     </div>
-    <button class="btn btn-primary" type="submit">
-        <i class="fa-spin">
-            <fa-icon *ngIf="loading" [icon]="faSync" [spin]="true"></fa-icon>
-        </i>        
-        Search
-    </button>
-</form>
+    
+</div>
+

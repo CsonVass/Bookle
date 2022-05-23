@@ -23,14 +23,14 @@
             </div>
           </div>
          
-        <div *ngIf="!fullScreenCover" class="col-auto">
+        <div *ngIf="book?.coverId && !fullScreenCover" class="col-auto">
             <img class="rounded img-thumbnail img-fluid" src="https://covers.openlibrary.org/b/id/{{book.coverId}}-M.jpg" alt="Cover"
             (click)="fullScreenCover=true">
         </div>
        
       </div>
 </div>
-<div *ngIf="fullScreenCover && !bookDetalisLoading" style="z-index:1; position:relative;">
+<div *ngIf="book?.coverId && fullScreenCover && !bookDetalisLoading" style="z-index:1; position:relative;">
     <img class="rounded img-thumbnail front-image" src="https://covers.openlibrary.org/b/id/{{book?.coverId}}-L.jpg" alt="Cover"
     (click)="fullScreenCover=false" style="width:100%">
 </div>
